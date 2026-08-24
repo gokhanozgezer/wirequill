@@ -1,0 +1,44 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+assets/docs-ui/
+*.tsbuildinfo
+
+# WireQuill runtime data
+.wirequill/
+examples/demo-store/.wirequill/
+# A database written anywhere else by --db, and the WAL files beside it
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# packing artifacts
+*.tgz
+
+# test artifacts
+coverage/
+test-results/
+playwright-report/
+tests/e2e/.output/
+.vitest/
+
+# editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# env
+.env
+.env.local
+
+# Generated documentation UI bundle
+packages/wirequill/assets/docs-ui/

@@ -1,0 +1,134 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Windows is the primary development environment and is never allowed to
+      # be advisory. No `continue-on-error` anywhere in this file.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # pnpm before Node, and never `corepack enable`.
+      #
+      # `corepack enable` runs against whatever Node the runner came with. On
+      # Windows it writes `pnpm.cmd` next to that Node and the shim invokes
+      # `%~dp0node.exe` — the interpreter beside it — so pnpm stays pinned to the
+      # preinstalled Node even after `setup-node` puts Node 24 on PATH. On Linux
+      # and macOS the equivalent shim resolves `node` from PATH and quietly picks
+      # up the new one, which is why this only ever broke on Windows.
+      #
+      # `pnpm/action-setup` installs its own pnpm and its shim resolves `node`
+      # from PATH, so the Node chosen below is the Node pnpm runs on. It also has
+      # to come first because `cache: pnpm` needs pnpm present to locate the
+      # store.
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          # Pinned rather than `latest`: `node:sqlite` is the storage engine and
+          # its availability is the reason for the engine requirement.
+          node-version: 24
+          cache: pnpm
+
+      # Printed before anything installs, so a version mismatch is visible in the
+      # log rather than inferred from a failure further down.
+      - name: Versions
+        run: |
+          node --version
+          pnpm --version
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test:unit
+
+      - name: Integration tests
+        run: pnpm test:integration
+
+      - name: Build
+        run: pnpm build
+
+      # The real npm artifact, installed into a throwaway project outside the
+      # repository. A workspace symlink hides every packaging mistake there is.
+      - name: Package install smoke
+        run: node scripts/package-smoke.mjs
+
+  e2e:
+    name: end-to-end (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Same ordering rule as above: pnpm, then Node 24, then anything that runs
+      # JavaScript.
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Versions
+        run: |
+          node --version
+          pnpm --version
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Chromium only. The suite is about WireQuill's own behaviour, not about
+      # rendering differences between engines.
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: End-to-end tests
+        run: pnpm test:e2e
+
+      - name: Upload traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces-${{ matrix.os }}
+          path: tests/e2e/.output
+          retention-days: 7

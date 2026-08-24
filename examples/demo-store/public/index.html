@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Paperline — demo store</title>
+    <link rel="icon" type="image/svg+xml" href="/mark.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="brand">
+        <img src="/mark.svg" alt="" width="18" height="18" />
+        <span>Paperline</span>
+      </div>
+      <div class="bar-right">
+        <span class="api" id="api-mode"></span>
+        <span class="cart" id="cart-count">Cart 0</span>
+        <span class="who" id="who">Signed out</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1. Login -->
+      <section id="view-login" class="view">
+        <h1>Sign in</h1>
+        <p class="muted">Demo credentials are filled in for you.</p>
+
+        <form id="login-form" autocomplete="off">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" value="demo@example.com" />
+
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" value="demo-password" />
+
+          <button type="submit" id="login-button">Sign in</button>
+        </form>
+
+        <p class="error" id="login-error" hidden></p>
+      </section>
+
+      <!-- 2. Products -->
+      <section id="view-products" class="view" hidden>
+        <h1>Products</h1>
+        <div class="grid" id="product-grid"></div>
+      </section>
+
+      <!-- 3. Product detail -->
+      <section id="view-product" class="view" hidden>
+        <button class="link" id="back-to-products">&larr; All products</button>
+        <div id="product-detail"></div>
+      </section>
+
+      <!-- 4. Cart -->
+      <section id="view-cart" class="view" hidden>
+        <h1>Your cart</h1>
+        <div id="cart-lines"></div>
+        <button id="checkout-button">Checkout</button>
+        <p class="error" id="checkout-error" hidden></p>
+      </section>
+
+      <!-- 5. Confirmation -->
+      <section id="view-done" class="view" hidden>
+        <h1>Order confirmed</h1>
+        <p class="muted" id="order-line"></p>
+        <button class="link" id="start-over">Start over</button>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

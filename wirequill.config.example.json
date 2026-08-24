@@ -1,0 +1,41 @@
+{
+  "target": "http://localhost:8080",
+  "proxy": {
+    "host": "127.0.0.1",
+    "port": 3000,
+    "insecure": false
+  },
+  "docs": {
+    "port": 3001,
+    "title": "Acme API",
+    "openBrowser": true
+  },
+  "capture": {
+    "maxBodyBytes": 1048576,
+    "maxDecompressedBodyBytes": 2097152,
+    "globalCaptureBudgetBytes": 33554432,
+    "include": ["/**"],
+    "exclude": [
+      "/**/*.js",
+      "/**/*.css",
+      "/**/*.map",
+      "/**/*.png",
+      "/**/*.jpg",
+      "/**/*.svg",
+      "/**/*.woff2"
+    ],
+    "ignoreMethods": ["OPTIONS"]
+  },
+  "redaction": {
+    "fields": [],
+    "headers": [],
+    "query": []
+  },
+  "inference": {
+    "requiredAfterSamples": 3
+  },
+  "storage": {
+    "maxObservations": 20000,
+    "maxExamplesPerBucket": 3
+  }
+}

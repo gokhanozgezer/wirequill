@@ -1,0 +1,188 @@
+/*
+ * Enough style to look deliberate on a recording, and no more.
+ *
+ * System fonts, local colours, no external anything — the demo has to satisfy
+ * the same no-remote-network rule the product does.
+ */
+:root {
+  --bg: #0b0d10;
+  --surface: #14171c;
+  --border: #232830;
+  --text: #e7eaee;
+  --muted: #8b93a1;
+  --accent: #4ade80;
+  --danger: #f87171;
+  --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.bar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.api {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
+main {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+form {
+  display: grid;
+  gap: 0.4rem;
+  max-width: 22rem;
+}
+
+label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  color: var(--text);
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+}
+
+button {
+  margin-top: 1.5rem;
+  background: var(--accent);
+  border: none;
+  border-radius: 0.4rem;
+  color: #08130c;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.65rem 1.1rem;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+button:focus-visible,
+input:focus-visible,
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  font-weight: 400;
+}
+
+.card:hover {
+  border-color: var(--accent);
+}
+
+.card-swatch {
+  display: block;
+  height: 5.5rem;
+  border-radius: 0.4rem;
+  opacity: 0.85;
+}
+
+.card-name {
+  font-weight: 600;
+}
+
+.card-price {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+.detail-price {
+  font-family: var(--mono);
+  color: var(--accent);
+  margin: 0 0 1rem;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.85rem;
+}

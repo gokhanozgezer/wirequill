@@ -1,0 +1,5 @@
+# No contact_links here: every entry needs an absolute URL, and this repository
+# has no public address to point one at yet. Security reporting is described in
+# SECURITY.md, and GitHub surfaces its own private reporting entry point once it
+# is enabled on the repository.
+blank_issues_enabled: true

@@ -1,0 +1,26 @@
+WireQuill
+
+Copyright 2026 Gokhan OZGEZER
+
+WireQuill was originally created by Gokhan OZGEZER.
+
+This product includes software developed as part of the WireQuill project.
+
+Licensed under the Apache License, Version 2.0. See the LICENSE file for the
+full terms. The Apache-2.0 grant covers the code in this project; it is not a
+grant of trademark rights in the WireQuill name or logo, beyond the customary
+use described in section 6 of the License.
+
+--------------------------------------------------------------------------------
+Third-party components
+
+WireQuill's published package contains a pre-built documentation interface that
+bundles third-party open-source code. Those components are distributed under
+their own licenses, which travel with the packages themselves in
+`node_modules`; the list below records only attribution that the components ask
+to be reproduced.
+
+  Scalar API Reference (https://github.com/scalar/scalar), MIT License.
+  The documentation interface renders the generated OpenAPI document with
+  Scalar, and keeps Scalar's own "Powered by Scalar" attribution visible in the
+  rendered page.

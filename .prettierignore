@@ -1,0 +1,9 @@
+node_modules/
+dist/
+assets/
+coverage/
+tests/e2e/.output/
+pnpm-lock.yaml
+.wirequill/
+WIREQUILL_DETAILED_PROJECT_SPEC.md
+wirequill-product-roadmap.md

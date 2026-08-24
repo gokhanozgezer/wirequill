@@ -1,0 +1,65 @@
+{
+  "name": "wirequill",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Turn real HTTP traffic into live OpenAPI documentation. Local-first, no cloud.",
+  "license": "Apache-2.0",
+  "author": "Gokhan OZGEZER <gokhanozgezer@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gokhanozgezer/wirequill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gokhanozgezer/wirequill/issues"
+  },
+  "homepage": "https://github.com/gokhanozgezer/wirequill#readme",
+  "keywords": [
+    "openapi",
+    "api",
+    "api-docs",
+    "api-documentation",
+    "documentation",
+    "proxy",
+    "http",
+    "developer-tools",
+    "local-first"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "wirequill": "dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "assets",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "commander": "^14.0.2",
+    "http-proxy-middleware": "^4.2.0",
+    "open": "^11.0.1",
+    "picocolors": "^1.1.1",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@seriousme/openapi-schema-validator": "^2.9.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  }
+}

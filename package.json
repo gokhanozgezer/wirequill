@@ -1,0 +1,56 @@
+{
+  "name": "wirequill-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "WireQuill - your API documents itself.",
+  "license": "Apache-2.0",
+  "author": "Gokhan OZGEZER <gokhanozgezer@gmail.com>",
+  "packageManager": "pnpm@10.28.2",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node scripts/sync-license.mjs && pnpm run build:docs-ui && pnpm run build:cli",
+    "build:docs-ui": "pnpm --filter @wirequill/docs-ui build && node scripts/copy-docs-ui.mjs",
+    "build:cli": "pnpm --filter wirequill build",
+    "dev": "pnpm --filter wirequill dev",
+    "demo": "node examples/demo-store/server.mjs",
+    "demo:reset": "node examples/demo-store/reset.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "pnpm -r --sequential typecheck && tsc --noEmit -p tests/e2e/tsconfig.json",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:integration": "vitest run --project integration",
+    "test:e2e": "pnpm run build && playwright test",
+    "test:package": "pnpm run build && node scripts/package-smoke.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "node scripts/clean.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@seriousme/openapi-schema-validator": "^2.9.1",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^24.10.1",
+    "eslint": "^10.9.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.4",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.47.0",
+    "vitest": "^3.2.4",
+    "wirequill": "workspace:*"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ],
+    "overrides": {
+      "esbuild": "^0.28.1"
+    }
+  }
+}

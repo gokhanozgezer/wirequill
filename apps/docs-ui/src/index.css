@@ -1,0 +1,131 @@
+/**
+ * Cascade order first, everything else after (spec section 94 of the docs-UI
+ * brief).
+ *
+ * Scalar ships its styles in `scalar-base`, `scalar-theme` and `scalar-config`
+ * layers; Tailwind v4 ships in `theme`, `base`, `components` and `utilities`.
+ * Naming all seven up front is what decides which wins, and declaring it before
+ * either stylesheet is loaded is what makes the answer stable rather than
+ * dependent on which import the bundler happened to emit first.
+ */
+@layer scalar-base, scalar-theme, scalar-config, theme, base, components, utilities;
+
+@import 'tailwindcss';
+
+@theme {
+  --color-quill-bg: #0a0c0f;
+  --color-quill-surface: #12151a;
+  --color-quill-border: #232830;
+  --color-quill-text: #e8ebef;
+  --color-quill-muted: #8b93a1;
+  --color-quill-accent: #4ade80;
+  --color-quill-blue: #7dd3fc;
+  --color-quill-warn: #fbbf24;
+}
+
+/**
+ * System fonts only, everywhere (spec sections 36 and 37).
+ *
+ * Nothing on this page may be fetched from a font host. Scalar's own default
+ * fonts are turned off in its configuration; these variables cover the shell
+ * and give Scalar something local to inherit.
+ */
+:root {
+  --wirequill-font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --wirequill-font-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+
+  /* Scalar reads these; pointing them at the local stacks keeps its typography
+     consistent with the shell without a single downloaded file. */
+  --scalar-font: var(--wirequill-font-sans);
+  --scalar-font-code: var(--wirequill-font-mono);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-quill-bg);
+  color: var(--color-quill-text);
+  font-family: var(--wirequill-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: var(--wirequill-font-mono);
+}
+
+/**
+ * One focus style for the whole shell.
+ *
+ * Never `outline: none`. The download link and every other control has to stay
+ * reachable and visible by keyboard (spec section 42).
+ */
+.quill-focus:focus-visible {
+  outline: 2px solid var(--color-quill-accent);
+  outline-offset: 2px;
+}
+
+/**
+ * The arrival of something new.
+ *
+ * A short fade with a few pixels of travel, once. Enough that a reader notices
+ * the documentation changed while they were looking elsewhere; not enough to be
+ * an animation anybody has to sit through (spec section 31).
+ */
+@keyframes quill-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.quill-enter {
+  animation: quill-enter 200ms ease-out both;
+}
+
+/** The live dot breathes, quietly. */
+@keyframes quill-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.quill-pulse {
+  animation: quill-pulse 2.4s ease-in-out infinite;
+}
+
+/**
+ * A reader who has asked for less motion gets none of it. The interface still
+ * updates; it simply stops moving while it does.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .quill-enter,
+  .quill-pulse {
+    animation: none;
+  }
+}
+
+/**
+ * Where the shell ends and the reference begins (spec section 39).
+ *
+ * Two surfaces at the same background level, separated by one border, so the
+ * page reads as one product rather than as a frame around somebody else's
+ * component. Nothing here reaches into Scalar's own markup.
+ */
+.quill-reference {
+  background-color: var(--color-quill-bg);
+}
