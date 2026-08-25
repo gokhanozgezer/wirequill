@@ -1,6 +1,6 @@
 {
   "name": "wirequill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Turn real HTTP traffic into live OpenAPI documentation. Local-first, no cloud.",
   "license": "Apache-2.0",

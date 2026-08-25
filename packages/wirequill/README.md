@@ -4,7 +4,6 @@
 
 [![CI](https://github.com/gokhanozgezer/wirequill/actions/workflows/ci.yml/badge.svg)](https://github.com/gokhanozgezer/wirequill/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/wirequill?logo=npm&label=npm)](https://www.npmjs.com/package/wirequill)
-[![GitHub Release](https://img.shields.io/github/v/release/gokhanozgezer/wirequill?display_name=tag&sort=semver&label=release)](https://github.com/gokhanozgezer/wirequill/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D24-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 

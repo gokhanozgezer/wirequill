@@ -5,7 +5,16 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## 0.1.0 — unreleased
+## 0.1.1
+
+Documentation only. Nothing in the published code changed.
+
+### Changed
+
+- Removed the GitHub release badge from the package README. The project does
+  not publish GitHub releases, so the badge had nothing to report.
+
+## 0.1.0
 
 The first release. WireQuill watches real HTTP traffic and turns it into live
 OpenAPI documentation.

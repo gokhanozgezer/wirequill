@@ -3,6 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { Validator } from '@seriousme/openapi-schema-validator';
+import { WIREQUILL_VERSION } from '../../src/version.js';
 import {
   getDocs,
   getJson,
@@ -118,7 +119,10 @@ describe('internal API', () => {
 
     expect(response.status).toBe(200);
     expect(payload.ok).toBe(true);
-    expect(payload.version).toBe('0.1.0');
+    // The constant, not a literal: a version bump is a two-file edit already,
+    // and a third place to forget is a test that fails for the wrong reason.
+    // `utils.test.ts` is what proves this constant matches the manifest.
+    expect(payload.version).toBe(WIREQUILL_VERSION);
     expect(payload.target).toBe(harness.backend.origin);
     expect(payload.docs).toBe(harness.docsOrigin);
     expect(typeof payload.revision).toBe('number');
